@@ -20,4 +20,4 @@ release:
 	$(CC) -o bin/librelease.so -shared src/*.o -Lgodot-cpp/bin -lgodot-cpp.linux.release.64
 
 clean:
-	rm $(objects)
+	rm src/*.o

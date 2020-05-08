@@ -2,3 +2,6 @@ godot-cpp
 bin
 
 venv
+**/.import
+*.import
+*.o

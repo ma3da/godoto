@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://wall.tscn" type="PackedScene" id=1]
+[ext_resource path="res://agent.tscn" type="PackedScene" id=2]
+[ext_resource path="res://devil.tscn" type="PackedScene" id=3]
+[ext_resource path="res://main.gdns" type="Script" id=4]
+
+[node name="Main" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="Agent" parent="." instance=ExtResource( 2 )]
+collision_mask = 2
+
+[node name="Camera2D" type="Camera2D" parent="Agent"]
+current = true
+
+[node name="Devil" parent="." instance=ExtResource( 3 )]
+collision_mask = 2
+
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="Wall" parent="Walls" instance=ExtResource( 1 )]
+position = Vector2( 0, -224 )
+scale = Vector2( 9, 0.520003 )
+
+[node name="Wall2" parent="Walls" instance=ExtResource( 1 )]
+position = Vector2( 160, 96 )
+scale = Vector2( 9, 0.52 )
+
+[node name="Wall3" parent="Walls" instance=ExtResource( 1 )]
+position = Vector2( 160, -96 )
+scale = Vector2( 0.520003, 3 )
