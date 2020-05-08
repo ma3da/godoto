@@ -53,6 +53,7 @@ void Agent::_input(const Ref<InputEvent> &p_event) {
 
 void Devil::_register_methods() {
 	register_method((char*)"_process", &Devil::_process);
+	register_method((char*)"_draw", &Devil::_draw);
 }
 
 void Devil::_init() {
@@ -64,17 +65,31 @@ Devil::Devil() {}
 
 Devil::~Devil() {}
 
+void Devil::_draw() {
+    draw_circle(Vector2(0, 0), radius, vision_color);
+}
 
 void Devil::_process(float delta) {
     timer += delta;
+    Vector2 pos = this->get_position();
     if (timer > 1) {
         Node2D* p_agent = Object::cast_to<Node2D>(get_node("/root/Main/Agent"));
-        Vector2 pos = this->get_position();
         Vector2 target_pos;
-        if (p_agent) target_pos = p_agent->get_position();
-        else target_pos = pos; // + Vector2(dis(gen), dis(gen));
+        if (p_agent) {
+            Vector2 agent_pos = p_agent->get_position();
+            if (agent_pos.distance_squared_to(pos) < radius * radius ) {
+                target_pos = agent_pos;
+            }
+            else {
+                target_pos = pos + Vector2(dis(gen), dis(gen));
+            }
+        }
+        else {
+            target_pos = pos + Vector2(dis(gen), dis(gen));
+        }
         motion = speed * (target_pos - pos).normalized();
         timer = 0;
     }
     move_and_slide(motion);
+    update();
 }

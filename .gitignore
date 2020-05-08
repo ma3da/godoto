@@ -5,3 +5,4 @@ venv
 **/.import
 *.import
 *.o
+.*.swp
